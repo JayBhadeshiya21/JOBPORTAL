@@ -9,7 +9,12 @@ function Header() {
     const user = { fullname: "Alex", role: "employer" };
     const navigate = useNavigate();
 
-    return <header>
+    return <motion.header
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0}}
+        transition={{ duration: 0.6}}
+        className='fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100  '
+    >
         <div className='container mx-auto px-4'>
             <div className=' flex items-center justify-between h-16 '>
                 {/* Logo */}
@@ -26,7 +31,7 @@ function Header() {
                         onClick={() => navigate("/find-jobs")}
                         className='text-gray-600 hover:text-gray-900 transition-colors font-medium'
                     >
-                        FindJobs
+                        Find Jobs
                     </a>
                     <a
                         onClick={() => {
@@ -69,7 +74,7 @@ function Header() {
 
                             <a
                                 href='/signup'
-                                className=''
+                                className='bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-sm hover:shadow-md'
                             >
                                 Sign Up
                             </a>
@@ -79,7 +84,7 @@ function Header() {
             </div>
         </div>
 
-    </header>;
+    </motion.header>;
 }
 
 export default Header
