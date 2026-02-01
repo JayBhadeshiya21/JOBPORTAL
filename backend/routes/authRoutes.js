@@ -1,8 +1,11 @@
 const express = require("express");
+const { register, login, getMe } = require("../controller/authController");
+const { protect } = require("../middlewares/authMiddleware");
+
 const router = express.Router();
 
-// Your routes here
-router.post("/login", (req, res) => { /* ... */ });
+router.post("/register", register);
+router.post("/login", login);
+router.get("/me", protect, getMe);
 
-// MAKE SURE THIS LINE EXISTS:
 module.exports = router;
