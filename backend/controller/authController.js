@@ -35,9 +35,34 @@ exports.register = async(req, res) => {
 };
 
 // @desc Login user
-exports.login = async(req, res) => {
+exports.login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
+    const user = await User.findOne({ email });
+
+    if (!user || !(await user.matchPassword(password))) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      token: generateToken(user._id),
+      avatar: user.avatar || "",
+      companyName: user.companyName || "",
+      companyDescription: user.companyDescription || "",
+      companyLogo: user.companyLogo || "",
+      resume: user.resume || ""
+    });
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
+
 
 exports.getMe = async(req, res) => {
     res.json(req.User);
