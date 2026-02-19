@@ -55,7 +55,18 @@ exports.getJobs = async(req, res) => {
         }
     }
     try {
-        
+        const jobs = await Job.find(query).populate(
+            "company",
+            "name companyName companyLogo"
+        );
+
+        let savedJobIds = [];
+        let appliedJobStatusMap = {};
+
+        if (userId) {
+            // Saved Jobs
+            const savedJobs = await SavedJob.find({ j})
+        }
 
     } catch (err) {
         res.status(500).json({ message: err.message});
